@@ -8,9 +8,9 @@ public class Main {
         UnGroupeDS ungroupedDataSet = new UnGroupeDS(ungroupedData);
 
         System.out.println("-------------------| DATOS SIN AGRUPADOS: |--------------------");
-        System.out.println("Media: " + DiscreteMaths.calculateMeanUGDS(ungroupedDataSet));
-        System.out.println("Mediana: " + DiscreteMaths.calculateMedianUGDS(ungroupedDataSet));
-        System.out.println("Moda: " + DiscreteMaths.calculateModeUGDS(ungroupedDataSet));
+        System.out.println("Media: " + DiscreteMaths.calculateMediaUGDS(ungroupedDataSet));
+        System.out.println("Mediana: " + DiscreteMaths.calculateMedianaUGDS(ungroupedDataSet));
+        System.out.println("Moda: " + DiscreteMaths.calculateModaUGDS(ungroupedDataSet));
 
         System.out.println("---------------------------------------------------------------");
 
@@ -22,8 +22,8 @@ public class Main {
         GroupDS groupedDataSet = new GroupDS(new ArrayList<>(frequencyMap.keySet()), frequencyMap);
 
         System.out.println("----------------------| DATOS AGRUPADOS: |---------------------");
-        System.out.println("Media: " + DiscreteMaths.calculateMeanGDS(groupedDataSet));
-        System.out.println("Mediana: " + DiscreteMaths.calculateMedianGDS(groupedDataSet));
-        System.out.println("Moda: " + DiscreteMaths.calculateModeGDS(groupedDataSet));
+        System.out.println("Media: " + DiscreteMaths.calculateMediaGDS(groupedDataSet));
+        System.out.println("Mediana: " + DiscreteMaths.calculateMedianaGDS(groupedDataSet));
+        System.out.println("Moda: " + DiscreteMaths.calculateModaGDS(groupedDataSet));
     }
 }

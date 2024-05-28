@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GroupDS extends DataSet {
-    private Map<Double, Integer> frequencyMap;
+    private final Map<Double, Integer> frequencyMap;
 
     public GroupDS(List<Double> data, Map<Double, Integer> frequencyMap) {
         super(data);

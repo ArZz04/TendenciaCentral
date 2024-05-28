@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class DiscreteMaths {
 
-    public static double calculateMeanUGDS(UnGroupeDS dataSet) {
+    public static double calculateMediaUGDS(UnGroupeDS dataSet) {
         List<Double> data = dataSet.getData();
         double sum = 0;
         for (double num : data) {
@@ -12,7 +12,7 @@ public class DiscreteMaths {
         return sum / data.size();
     }
 
-    public static double calculateMedianUGDS(UnGroupeDS dataSet) {
+    public static double calculateMedianaUGDS(UnGroupeDS dataSet) {
         List<Double> data = dataSet.getData();
         Collections.sort(data);
         int size = data.size();
@@ -23,7 +23,7 @@ public class DiscreteMaths {
         }
     }
 
-    public static double calculateModeUGDS(UnGroupeDS dataSet) {
+    public static double calculateModaUGDS(UnGroupeDS dataSet) {
         List<Double> data = dataSet.getData();
         Map<Double, Long> frequencyMap = data.stream()
                 .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
@@ -35,7 +35,7 @@ public class DiscreteMaths {
                 .findFirst().orElse(Double.NaN);
     }
 
-    public static double calculateMeanGDS(GroupDS dataSet) {
+    public static double calculateMediaGDS(GroupDS dataSet) {
         Map<Double, Integer> frequencyMap = dataSet.getFrequencyMap();
         double sum = 0;
         int totalFrequency = 0;
@@ -48,7 +48,7 @@ public class DiscreteMaths {
         return sum / totalFrequency;
     }
 
-    public static double calculateMedianGDS(GroupDS dataSet) {
+    public static double calculateMedianaGDS(GroupDS dataSet) {
         Map<Double, Integer> frequencyMap = dataSet.getFrequencyMap();
         List<Double> data = dataSet.getData();
         int size = data.size();
@@ -65,7 +65,7 @@ public class DiscreteMaths {
         return Double.NaN;
     }
 
-    public static double calculateModeGDS(GroupDS dataSet) {
+    public static double calculateModaGDS(GroupDS dataSet) {
         Map<Double, Integer> frequencyMap = dataSet.getFrequencyMap();
         int maxFrequency = Collections.max(frequencyMap.values());
         return frequencyMap.entrySet().stream()

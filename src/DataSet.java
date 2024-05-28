@@ -11,4 +11,5 @@ public abstract class DataSet {
         return data;
     }
 
+    public abstract boolean isGrouped();
 }
