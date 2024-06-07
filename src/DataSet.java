@@ -1,7 +1,7 @@
 public class DataSet {
-    private double[] ungroupedData;
+    private final double[] ungroupedData;
 
-    private double[][][] groupedData;
+    private final double[][][] groupedData;
 
     public DataSet() {
         ungroupedData = new double[]  {72, 88, 65, 90, 78, 82, 75, 95, 87, 70, 70};
@@ -39,4 +39,19 @@ public class DataSet {
     }
 
 
+    public double getClassWidth() {
+        // Asumimos que todas las clases tienen el mismo ancho
+        if (groupedData[0].length > 0) {
+            return groupedData[0][0][1] - groupedData[0][0][0];
+        }
+        return 0;
+    }
+
+    public double[] getLowerLimits() {
+        double[] lowerLimits = new double[groupedData[0].length];
+        for (int i = 0; i < groupedData[0].length; i++) {
+            lowerLimits[i] = groupedData[0][i][0];
+        }
+        return lowerLimits;
+    }
 }

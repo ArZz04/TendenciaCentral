@@ -60,15 +60,18 @@ public class DiscreteMaths {
         DataSet dataS = new DataSet();
         double[][][] groupedData = dataS.getGroupedData();
         double[][] frequencies = dataS.getFrequencies();
-        double totalFrequency = Arrays.stream(frequencies).flatMapToDouble(Arrays::stream).sum();
+        double totalFrequency = Arrays.stream(frequencies)
+                .flatMapToDouble(Arrays::stream)
+                .sum();
 
-        double midpoint = totalFrequency / 2.0;
-        boolean isEven = totalFrequency % 2.0 == 0.0;
+        double midpoint = totalFrequency / 2.0; // Punto medio de la frecuencia total
+        boolean isEven = totalFrequency % 2.0 == 0.0; // Verificar si la frecuencia total es par
 
         double cumulativeFrequency = 0.0;
         for (int i = 0; i < groupedData[0].length; i++) {
             for (int j = 0; j < frequencies[i].length; j++) {
                 cumulativeFrequency += frequencies[i][j];
+
                 // Si la frecuencia acumulada supera o iguala el punto medio
                 if (cumulativeFrequency >= midpoint || (isEven && cumulativeFrequency == midpoint)) {
                     // Calcular el límite inferior de la clase mediana
@@ -88,31 +91,46 @@ public class DiscreteMaths {
         return Double.NaN; // En caso de que no se encuentre la mediana
     }
 
-
-
     public static double calculateModaGDS() {
         DataSet dataS = new DataSet();
         double[][] frequencies = dataS.getFrequencies();
 
-        // Encontrar la frecuencia máxima en todas las clases
+        // Encontrar la frecuencia máxima en todas las clases y su índice
         double maxFrequency = Arrays.stream(frequencies)
                 .flatMapToDouble(Arrays::stream)
                 .max()
                 .orElse(0.0);
 
-        // Obtener los puntos medios
+        // Obtener los puntos medios y límites de clases
         double[] midPoints = dataS.getMidPoints();
+        double[] lowerLimits = dataS.getLowerLimits();
+        double classWidth = dataS.getClassWidth(); // Supone que todas las clases tienen el mismo ancho
 
-        // Iterar sobre las frecuencias para encontrar la moda
+        // Identificar la clase modal (con la frecuencia máxima)
+        int modalClassIndex = -1;
         for (int i = 0; i < frequencies.length; i++) {
             for (int j = 0; j < frequencies[i].length; j++) {
                 if (frequencies[i][j] == maxFrequency) {
-                    return midPoints[i];
+                    modalClassIndex = i;
+                    break;
                 }
             }
+            if (modalClassIndex != -1) break;
         }
 
-        return Double.NaN; // Devuelve NaN si no se encuentra ninguna moda
+        if (modalClassIndex == -1) return Double.NaN; // Devuelve NaN si no se encuentra ninguna moda
+
+        // Frecuencias necesarias para el cálculo
+        double f_m = frequencies[modalClassIndex][0];
+        double f_m_minus_1 = modalClassIndex > 0 ? frequencies[modalClassIndex - 1][0] : 0;
+        double f_m_plus_1 = modalClassIndex < frequencies.length - 1 ? frequencies[modalClassIndex + 1][0] : 0;
+
+        // Límite inferior de la clase modal
+        double L = lowerLimits[modalClassIndex];
+
+        // Cálculo de la moda
+        double moda = L + ((f_m - f_m_minus_1) / (2 * f_m - f_m_minus_1 - f_m_plus_1)) * classWidth;
+        return moda;
     }
 
 
